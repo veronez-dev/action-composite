@@ -1,0 +1,23 @@
+name: 'Workflow Evento'
+description: 'Adiciona um comentário a um issue ou pull request'
+inputs:
+  GITHUB_TOKEN:
+    description: 'Token do GitHub'
+    required: true
+  issue-id:
+    description: 'ID do issue ou pull request'
+    required: true
+  comment:
+    description: 'Comentário a ser adicionado'
+    required: true
+outputs:
+  comment-id:
+    description: 'ID do comentário criado'
+runs:
+  using: "composite"
+  steps:
+    - name: Adicionando comentário
+      run: main.sh
+      shell: bash
+      with:
+        args: ${{ inputs.GITHUB_TOKEN }} ${{ inputs.issue-id }} ${{ inputs.comment }}
