@@ -16,15 +16,28 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Deixar Executavel
-      shell: bash
-      run: chmod +x ./main.sh
     - name: Adicionando comentário
-      run: ./main.sh
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         ISSUE_ID: ${{ inputs.issue-id }}
         COMMENT: ${{ inputs.comment }}
+      run: |
+        GITHUB_TOKEN=$GITHUB_TOKEN
+        ISSUE_ID=$ISSUE_ID
+        COMMENT=$COMMENT
+
+        # Inicialize o cliente do GitHub
+        response=$(curl -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${ISSUE_ID}/comments \
+            -d "{\"body\": \"${COMMENT}\"}")
+
+        # Obtenha o ID do comentário criado
+        comment_id=$(echo $response | jq -r .id)
+
+        # Define o output com o ID do comentário
+
+        echo "comment-id=$(echo $comment_id)" >> $GITHUB_OUTPUT
+
+        echo "Comentário adicionado com sucesso! ID do comentário: $comment_id"
