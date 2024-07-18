@@ -15,5 +15,7 @@ response=$(curl -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
 comment_id=$(echo $response | jq -r .id)
 
 # Define o output com o ID do comentário
-echo "::set-output name=comment-id::$comment_id"
+
+echo "comment-id=$(echo $comment_id)" >> $GITHUB_OUTPUT
+
 echo "Comentário adicionado com sucesso! ID do comentário: $comment_id"
