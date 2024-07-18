@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Obtenha os inputs da action
-GITHUB_TOKEN=$1
-ISSUE_ID=$2
-COMMENT=$3
+GITHUB_TOKEN=$GITHUB_TOKEN
+ISSUE_ID=$ISSUE_ID
+COMMENT=$COMMENT
 
 # Inicialize o cliente do GitHub
 response=$(curl -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" \

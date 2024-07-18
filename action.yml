@@ -19,5 +19,7 @@ runs:
     - name: Adicionando comentário
       run: main.sh
       shell: bash
-      with:
-        args: ${{ inputs.GITHUB_TOKEN }} ${{ inputs.issue-id }} ${{ inputs.comment }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        ISSUE_ID: ${{ inputs.issue-id }}
+        COMMENT: ${{ inputs.comment }}
