@@ -19,6 +19,7 @@ runs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Deixar Executavel
+      shell: bash
       run: chmod +x ./main.sh
     - name: Adicionando comentário
       run: ./main.sh
