@@ -18,8 +18,10 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Deixar Executavel
+      run: chmod +x ./main.sh
     - name: Adicionando comentário
-      run: main.sh
+      run: ./main.sh
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
