@@ -13,11 +13,13 @@ inputs:
 outputs:
   comment-id:
     description: 'ID do comentário criado'
+    value: ${{ steps.comment-action.outputs.comment-id }}
 runs:
   using: "composite"
   steps:
     - name: Adicionando comentário
       shell: bash
+      id: comment-action
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         ISSUE_ID: ${{ inputs.issue-id }}
@@ -35,6 +37,8 @@ runs:
 
         # Obtenha o ID do comentário criado
         comment_id=$(echo $response | jq -r .id)
+
+        echo 
 
         # Define o output com o ID do comentário
 
